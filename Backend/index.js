@@ -1,5 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
+import Databaseconnection from "./utils/Database.js";
+import cookieParser from "cookie-parser";
+
+Databaseconnection();
 dotenv.config(
     {
        path: "./.env"
@@ -7,6 +11,9 @@ dotenv.config(
 );
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 
 
 
