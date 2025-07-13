@@ -3,8 +3,10 @@ import dotenv from "dotenv";
 import Databaseconnection from "./utils/Database.js";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/userRoutes.js";
+import cors from "cors";
 // ✅ Load environment variables first
 dotenv.config({ path: "./.env" });
+
 
 // ✅ Connect to database
 Databaseconnection();
@@ -15,6 +17,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
+const corsOptions = {
+  origin:"http://localhost:5173",
+  
+};  
+app.use(cors(corsOptions));
+  
 app.get("/", (req, res) => {
   res.status(200).json({
     message: "Welcome to the Netflix Clone API",    

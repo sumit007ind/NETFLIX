@@ -2,6 +2,8 @@ import React from "react";
 import Header from "./Header";
 import { useState } from "react";
 import { flushSync } from "react-dom";
+import axios from "axios";
+import API_END_POINT  from "../utils/Constant";
 
 const Login = () => {
   const [islogin, setIslogin] = useState(true);
@@ -11,14 +13,44 @@ const Login = () => {
   const Loginhandler = () => {
     setIslogin(!islogin);
   };
-    const getInputData = (e) => {
+    const getInputData = async (e) => {
     e.preventDefault();
-    console.log("Fullname:", Fullname);
-    console.log("Email:", email);   
-    console.log("Password:", password);
-    setEmail("");
-    setPassword("");        
-    setFullname("");
+    if(islogin){
+      try {
+        const res = await axios.post(`${API_END_POINT}/Login`, {
+          Email: email,
+          Password: password,
+        });
+        console.log(res);
+        alert("Login successful");
+        
+      } catch (error) {
+        console.error("Error during login:", error);
+        
+        
+      }
+
+    }else{
+try {
+      const res = await axios.post(`${API_END_POINT}/register`, {
+        FullName: Fullname,
+        Email: email,
+        Password: password,
+      }); 
+      console.log(res);
+
+      
+    } catch (error) {
+      console.error("Error during registration:", error);
+      alert("Registration failed. Please try again.");
+      
+    }
+    }
+    
+    
+    // setEmail("");
+    // setPassword("");        
+    // setFullname("");
     }
   return (
     <div className="relative w-full h-screen">
