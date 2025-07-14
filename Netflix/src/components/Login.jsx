@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault();
     if(islogin){
       try {
-        const res = await axios.post(`${API_END_POINT}/Login`, {
+        const res = await axios.post(`${API_END_POINT}/Login`,existingUser, {
           Email: email,
           Password: password,
         });
@@ -32,7 +32,7 @@ const Login = () => {
 
     }else{
 try {
-      const res = await axios.post(`${API_END_POINT}/register`, {
+      const res = await axios.post(`${API_END_POINT}/register`, existingUser, {
         FullName: Fullname,
         Email: email,
         Password: password,
@@ -48,9 +48,9 @@ try {
     }
     
     
-    // setEmail("");
-    // setPassword("");        
-    // setFullname("");
+    setEmail("");
+    setPassword("");        
+    setFullname("");
     }
   return (
     <div className="relative w-full h-screen">
